@@ -46,14 +46,14 @@ export function FeaturedJobCarousel({ onOpenJob }: { onOpenJob: (job: Job) => vo
       aria-labelledby="featured-title"
       className="min-w-0 rounded-3xl border border-line bg-white/70 p-4 shadow-sm sm:p-5"
     >
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 id="featured-title" className="flex items-center gap-2 text-xs font-semibold tracking-[0.12em] text-navy">
           <span className="size-2 shrink-0 rounded-full bg-success" aria-hidden />
           <span>
             PELUANG UNGGULAN <span className="max-sm:hidden">TERKINI</span>
           </span>
         </h2>
-        <div className="flex items-center gap-1">
+        <div className="ml-auto flex shrink-0 items-center gap-1">
           <span className="mr-1 text-sm font-medium whitespace-nowrap text-muted tabular-nums sm:mr-2" aria-live="polite">
             <span className="sr-only">Posisi </span>
             {pad(activeIndex + 1)} / {pad(FEATURED_JOBS.length)}
@@ -82,7 +82,7 @@ export function FeaturedJobCarousel({ onOpenJob }: { onOpenJob: (job: Job) => vo
       <div
         ref={trackRef}
         onScroll={syncActiveIndex}
-        className="scrollbar-none relative mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto motion-safe:scroll-smooth"
+        className="scrollbar-none relative mt-3 flex scroll-px-1 snap-x snap-mandatory gap-4 overflow-x-auto p-1 motion-safe:scroll-smooth"
       >
         {FEATURED_JOBS.map((job, index) => (
           <article

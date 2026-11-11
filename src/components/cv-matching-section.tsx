@@ -127,7 +127,7 @@ export function CvMatchingSection({ onOpenJob }: { onOpenJob: (job: Job) => void
           })}
         </ol>
 
-        <div className="mt-6 grid items-start gap-6 lg:grid-cols-2">
+        <div className="mt-6 space-y-6">
           <div className="rounded-2xl border border-line bg-white p-5 sm:p-6">
             <div className="flex items-center gap-3">
               <span className="grid size-10 place-items-center rounded-xl bg-tint text-primary">
@@ -141,156 +141,157 @@ export function CvMatchingSection({ onOpenJob }: { onOpenJob: (job: Job) => void
               </div>
             </div>
 
-            <input
-              ref={inputRef}
-              type="file"
-              accept={CV_ACCEPT}
-              tabIndex={-1}
-              aria-hidden
-              className="hidden"
-              onChange={(event) => {
-                selectFile(event.target.files?.[0]);
-                event.target.value = "";
-              }}
-            />
-
-            {file ? (
-              <div className="mt-5 flex items-center gap-3 rounded-xl border border-line bg-surface p-3">
-                <FileText className="size-8 shrink-0 text-primary" aria-hidden />
-                <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-semibold text-navy">{file.name}</p>
-                  <p className="text-xs text-muted">{formatFileSize(file.size)}</p>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => inputRef.current?.click()}
-                  className="min-h-10 rounded-lg px-2 text-sm font-semibold text-primary hover:underline"
-                >
-                  Ganti
-                </button>
-                <button
-                  type="button"
-                  onClick={removeFile}
-                  aria-label={`Hapus file ${file.name}`}
-                  className="grid size-10 shrink-0 place-items-center rounded-lg text-muted hover:bg-white hover:text-navy"
-                >
-                  <X className="size-4" aria-hidden />
-                </button>
-              </div>
-            ) : (
-              <div
-                onDragOver={(event) => {
-                  event.preventDefault();
-                  setIsDragging(true);
-                }}
-                onDragLeave={() => setIsDragging(false)}
-                onDrop={handleDrop}
-                className={`mt-5 flex flex-col items-center rounded-xl border-2 border-dashed px-4 py-8 text-center transition-colors ${
-                  isDragging ? "border-primary bg-tint" : "border-line bg-surface"
-                }`}
-              >
-                <Upload className="size-7 text-primary" aria-hidden />
-                <p className="mt-3 hidden text-sm font-semibold text-navy md:block">Tarik dan letakkan CV di sini</p>
-                <p className="mt-3 text-sm font-semibold text-navy md:hidden">Pilih CV dari perangkatmu</p>
-                <p className="mt-1 hidden text-xs text-muted md:block">atau</p>
-                <button
-                  type="button"
-                  onClick={() => inputRef.current?.click()}
-                  aria-describedby="cv-format-hint"
-                  className={`${buttonSecondary} mt-3`}
-                >
-                  Pilih Dokumen
-                </button>
-              </div>
-            )}
-
-            {error && (
-              <p role="alert" className="mt-3 flex items-start gap-2 rounded-lg bg-tint p-3 text-sm font-medium text-navy">
-                <CircleAlert className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden />
-                {error}
-              </p>
-            )}
-
-            <div className="mt-5 rounded-xl border border-line p-4">
-              <p className="flex gap-2 text-sm text-muted">
-                <ShieldCheck className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden />
-                <span>
-                  CV-mu digunakan untuk membantu mencocokkan keahlian dan pengalaman dengan kesempatan kerja yang
-                  tersedia. Di prototipe ini, file tidak diunggah ke server dan isinya tidak dibaca.
-                </span>
-              </p>
-              <label className="mt-3 flex cursor-pointer items-start gap-3 text-sm text-navy">
+            <div className="mt-5 grid gap-5 lg:grid-cols-2 lg:gap-8">
+              <div className="flex flex-col gap-3">
                 <input
-                  type="checkbox"
-                  checked={hasConsent}
-                  onChange={(event) => setHasConsent(event.target.checked)}
-                  className="mt-0.5 size-5 shrink-0 cursor-pointer accent-primary"
+                  ref={inputRef}
+                  type="file"
+                  accept={CV_ACCEPT}
+                  tabIndex={-1}
+                  aria-hidden
+                  className="hidden"
+                  onChange={(event) => {
+                    selectFile(event.target.files?.[0]);
+                    event.target.value = "";
+                  }}
                 />
-                Saya setuju CV saya diproses untuk mencocokkan keahlian dengan lowongan yang tersedia.
-              </label>
-            </div>
 
-            <button
-              type="button"
-              onClick={startAnalysis}
-              disabled={!canAnalyze}
-              aria-describedby={canAnalyze ? undefined : "cv-analyze-hint"}
-              className={`${buttonPrimary} mt-5 min-h-12 w-full`}
-            >
-              {phase === "analyzing" ? (
-                <LoaderCircle className="size-4 animate-spin" aria-hidden />
-              ) : (
-                <Sparkles className="size-4" aria-hidden />
-              )}
-              {phase === "analyzing" ? "Menganalisis..." : "Analisis & Cocokkan Posisi"}
-            </button>
-            {!canAnalyze && phase !== "analyzing" && (
-              <p id="cv-analyze-hint" className="mt-2 text-center text-xs text-muted">
-                {file ? "Centang persetujuan untuk memulai analisis." : "Pilih file CV terlebih dahulu."}
-              </p>
-            )}
-            <a
-              href="#lowongan"
-              className="mt-3 flex min-h-11 items-center justify-center text-sm font-semibold text-primary hover:underline"
-            >
-              Jelajahi Lowongan Tanpa CV
-            </a>
+                {file ? (
+                  <div className="flex flex-1 flex-col items-center justify-center rounded-xl border-2 border-primary/30 bg-tint/50 px-4 py-8 text-center">
+                    <span className="relative grid size-14 place-items-center rounded-2xl bg-white text-primary shadow-sm">
+                      <FileText className="size-7" aria-hidden />
+                      <CircleCheck className="absolute -right-1.5 -bottom-1.5 size-5 rounded-full bg-white text-success" aria-hidden />
+                    </span>
+                    <p className="mt-4 w-full truncate text-sm font-semibold text-navy" title={file.name}>
+                      {file.name}
+                    </p>
+                    <p className="mt-1 text-xs text-muted">{formatFileSize(file.size)} · Siap dianalisis</p>
+                    <div className="mt-4 flex flex-wrap justify-center gap-2">
+                      <button type="button" onClick={() => inputRef.current?.click()} className={buttonSecondary}>
+                        Ganti File
+                      </button>
+                      <button
+                        type="button"
+                        onClick={removeFile}
+                        aria-label={`Hapus file ${file.name}`}
+                        className="inline-flex min-h-11 items-center gap-1.5 rounded-xl px-4 text-sm font-semibold text-muted hover:bg-white hover:text-navy"
+                      >
+                        <X className="size-4" aria-hidden />
+                        Hapus
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div
+                    onDragOver={(event) => {
+                      event.preventDefault();
+                      setIsDragging(true);
+                    }}
+                    onDragLeave={() => setIsDragging(false)}
+                    onDrop={handleDrop}
+                    className={`flex flex-1 flex-col items-center justify-center rounded-xl border-2 border-dashed px-4 py-8 text-center transition-colors ${
+                      isDragging ? "border-primary bg-tint" : "border-line bg-surface"
+                    }`}
+                  >
+                    <Upload className="size-7 text-primary" aria-hidden />
+                    <p className="mt-3 hidden text-sm font-semibold text-navy md:block">Tarik dan letakkan CV di sini</p>
+                    <p className="mt-3 text-sm font-semibold text-navy md:hidden">Pilih CV dari perangkatmu</p>
+                    <p className="mt-1 hidden text-xs text-muted md:block">atau</p>
+                    <button
+                      type="button"
+                      onClick={() => inputRef.current?.click()}
+                      aria-describedby="cv-format-hint"
+                      className={`${buttonSecondary} mt-3`}
+                    >
+                      Pilih Dokumen
+                    </button>
+                  </div>
+                )}
+
+                {error && (
+                  <p role="alert" className="flex items-start gap-2 rounded-lg bg-tint p-3 text-sm font-medium text-navy">
+                    <CircleAlert className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden />
+                    {error}
+                  </p>
+                )}
+              </div>
+
+              <div className="flex flex-col">
+                <div className="rounded-xl border border-line p-4">
+                  <p className="flex gap-2 text-sm text-muted">
+                    <ShieldCheck className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden />
+                    <span>
+                      CV-mu digunakan untuk membantu mencocokkan keahlian dan pengalaman dengan kesempatan kerja yang
+                      tersedia. Di prototipe ini, file tidak diunggah ke server dan isinya tidak dibaca.
+                    </span>
+                  </p>
+                  <label className="mt-3 flex cursor-pointer items-start gap-3 text-sm text-navy">
+                    <input
+                      type="checkbox"
+                      checked={hasConsent}
+                      onChange={(event) => setHasConsent(event.target.checked)}
+                      className="mt-0.5 size-5 shrink-0 cursor-pointer accent-primary"
+                    />
+                    Saya setuju CV saya diproses untuk mencocokkan keahlian dengan lowongan yang tersedia.
+                  </label>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={startAnalysis}
+                  disabled={!canAnalyze}
+                  aria-describedby={canAnalyze ? undefined : "cv-analyze-hint"}
+                  className={`${buttonPrimary} mt-5 min-h-12 w-full`}
+                >
+                  {phase === "analyzing" ? (
+                    <LoaderCircle className="size-4 animate-spin" aria-hidden />
+                  ) : (
+                    <Sparkles className="size-4" aria-hidden />
+                  )}
+                  {phase === "analyzing" ? "Menganalisis..." : "Analisis & Cocokkan Posisi"}
+                </button>
+                {!canAnalyze && phase !== "analyzing" && (
+                  <p id="cv-analyze-hint" className="mt-2 text-center text-xs text-muted">
+                    {file ? "Centang persetujuan untuk memulai analisis." : "Pilih file CV terlebih dahulu."}
+                  </p>
+                )}
+                <a
+                  href="#lowongan"
+                  className="mt-3 flex min-h-11 items-center justify-center text-sm font-semibold text-primary hover:underline"
+                >
+                  Jelajahi Lowongan Tanpa CV
+                </a>
+              </div>
+            </div>
           </div>
 
-          <div className="rounded-2xl border border-line bg-white p-5 sm:p-6" aria-live="polite">
-            {phase === "idle" && (
-              <div className="flex flex-col items-center py-8 text-center">
-                <span className="grid size-12 place-items-center rounded-full bg-tint text-primary">
-                  <Sparkles className="size-6" aria-hidden />
-                </span>
-                <p className="mt-4 font-semibold text-navy">Rekomendasi akan muncul di sini</p>
-                <p className="mt-1 max-w-sm text-sm text-muted">
-                  Pilih CV, berikan persetujuan, lalu jalankan analisis untuk melihat posisi yang relevan.
-                </p>
+          {/* Results only take space once an analysis has started; the live region stays mounted for announcements. */}
+          <div aria-live="polite">
+            {phase !== "idle" && (
+              <div className="rounded-2xl border border-line bg-white p-5 sm:p-6">
+                {phase === "analyzing" && (
+                  <div className="py-8">
+                    <p className="font-semibold text-navy">Menganalisis CV-mu...</p>
+                    <p className="mt-1 text-sm text-muted">{STEPS[completedSteps]?.title}</p>
+                    <div
+                      role="progressbar"
+                      aria-label="Progres analisis"
+                      aria-valuemin={0}
+                      aria-valuemax={STEPS.length}
+                      aria-valuenow={completedSteps}
+                      className="mt-4 h-2 overflow-hidden rounded-full bg-tint"
+                    >
+                      <div
+                        className="h-full rounded-full bg-primary transition-all duration-700"
+                        style={{ width: `${((completedSteps + 1) / STEPS.length) * 100}%` }}
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {phase === "done" && <AnalysisResult onOpenJob={onOpenJob} />}
               </div>
             )}
-
-            {phase === "analyzing" && (
-              <div className="py-8">
-                <p className="font-semibold text-navy">Menganalisis CV-mu...</p>
-                <p className="mt-1 text-sm text-muted">{STEPS[completedSteps]?.title}</p>
-                <div
-                  role="progressbar"
-                  aria-label="Progres analisis"
-                  aria-valuemin={0}
-                  aria-valuemax={STEPS.length}
-                  aria-valuenow={completedSteps}
-                  className="mt-4 h-2 overflow-hidden rounded-full bg-tint"
-                >
-                  <div
-                    className="h-full rounded-full bg-primary transition-all duration-700"
-                    style={{ width: `${((completedSteps + 1) / STEPS.length) * 100}%` }}
-                  />
-                </div>
-              </div>
-            )}
-
-            {phase === "done" && <AnalysisResult onOpenJob={onOpenJob} />}
           </div>
         </div>
       </div>
@@ -311,7 +312,7 @@ function AnalysisResult({ onOpenJob }: { onOpenJob: (job: Job) => void }) {
         Analisis ini adalah simulasi: hasilnya selalu memakai contoh profil di bawah, bukan isi CV-mu.
       </p>
 
-      <div className="mt-4 space-y-3 rounded-xl bg-surface p-4">
+      <div className="mt-4 grid gap-4 rounded-xl bg-surface p-4 md:grid-cols-2">
         <div>
           <p className="mb-2 text-xs font-semibold tracking-wide text-muted uppercase">Skill terdeteksi (contoh)</p>
           <SkillTags skills={SIMULATED_CV_PROFILE.skills} label="Skill terdeteksi" />
@@ -326,9 +327,9 @@ function AnalysisResult({ onOpenJob }: { onOpenJob: (job: Job) => void }) {
         </div>
       </div>
 
-      <ul className="mt-4 space-y-3">
+      <ul className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {RECOMMENDATIONS.map(({ job, label, matchedSkills, experiences }) => (
-          <li key={job.id} className="rounded-xl border border-line p-4">
+          <li key={job.id} className="flex flex-col rounded-xl border border-line p-4">
             <div className="flex flex-wrap items-start justify-between gap-2">
               <div>
                 <DepartmentBadge department={job.department} />
@@ -349,7 +350,7 @@ function AnalysisResult({ onOpenJob }: { onOpenJob: (job: Job) => void }) {
               skill {matchedSkills.join(", ")} cocok dengan kebutuhan posisi ini
               {experiences.length > 0 ? `, didukung pengalaman: ${experiences.join("; ").toLowerCase()}.` : "."}
             </p>
-            <div className="mt-3 flex justify-end">
+            <div className="mt-auto flex justify-end pt-3">
               <button
                 type="button"
                 onClick={() => onOpenJob(job)}

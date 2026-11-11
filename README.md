@@ -98,7 +98,7 @@ src/
 - Dua lowongan tambahan (Marketing dan Business) ditambahkan agar filter Marketing dan chip Business tidak selalu kosong. Salah satunya sengaja tanpa gaji untuk menunjukkan state "Gaji tidak dicantumkan.".
 - Carousel menampilkan departemen, bukan nama perusahaan lain, karena ASTER diposisikan sebagai halaman karier satu perusahaan.
 - Ikon media sosial dan klaim "terenkripsi" dari desain tidak dipakai karena akun dan fiturnya tidak ada.
-- Tiga langkah cara kerja CV ditaruh di atas panel upload (seperti versi mobile Stitch) untuk desktop dan mobile.
+- Tiga langkah cara kerja CV ditaruh di atas panel upload (seperti versi mobile Stitch). Panel hasil baru muncul setelah analisis dimulai, jadi tidak ada kartu kosong di samping form.
 - Pesan error memakai palet biru yang sama (ikon + teks), bukan warna merah baru, untuk mematuhi aturan palet.
 
 ## Mock data & simulasi CV
@@ -116,7 +116,7 @@ src/
 
 Diuji di lebar 1440, 768, 430, 390, dan 360 px tanpa horizontal overflow.
 
-- **Desktop (≥1024px):** navigasi horizontal, hero dua kolom dengan carousel di kanan, grid lowongan 3 kolom, CV dua kolom (upload | hasil), footer multi-kolom.
+- **Desktop (≥1024px):** navigasi horizontal, hero dua kolom dengan carousel di kanan, grid lowongan 3 kolom, panel unggah CV selebar penuh (dropzone | persetujuan) dengan hasil rekomendasi 3 kolom di bawahnya, footer multi-kolom.
 - **Tablet (768px):** hero bertumpuk, grid lowongan 2 kolom, form pencarian tetap satu baris.
 - **Mobile (<768px):** menu hamburger (target sentuh 44px), form pencarian bertumpuk dengan tombol full width, chip kategori scroll horizontal, kartu satu kolom, teks dropzone berganti menjadi "Pilih CV dari perangkatmu", footer dua kolom.
 - `prefers-reduced-motion` mematikan smooth scroll dan transisi.
