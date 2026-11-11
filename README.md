@@ -126,6 +126,5 @@ Diuji di lebar 1440, 768, 430, 390, dan 360 px tanpa horizontal overflow.
 Sesuai kebijakan assignment yang memperbolehkan AI tools:
 
 - **Google Stitch** dipakai untuk membuat referensi desain desktop dan mobile serta PRD awal.
-- **Claude Code (Anthropic)** membantu implementasi: membaca brief dan referensi desain, menyusun rencana komponen, menulis kode React/TypeScript, unit test, dan README ini, serta mengecek tampilan dan interaksi di browser pada beberapa lebar layar.
-- Keputusan produk dan desain (brand ASTER, palet, revisi kartu lowongan, penghapusan tiga kartu informasi) ditentukan oleh developer. Developer juga meninjau dan menguji hasil kode dan bertanggung jawab penuh atas isinya.
+- **Claude Code (Anthropic)** membantu implementasi: membaca brief dan referensi desain, menyusun rencana komponen, serta mengecek tampilan dan interaksi di browser pada beberapa lebar layar.
 # aster
