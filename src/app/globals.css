@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-primary: #155eef;
+  --color-navy: #14213d;
+  --color-surface: #f7f9fc;
+  --color-tint: #eef3ff;
+  --color-line: #e5eaf3;
+  --color-muted: #64748b;
+  --color-success: #12b981;
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Native <dialog> does not lock page scroll on its own. */
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
+body {
+  background: var(--color-surface);
+  color: var(--color-navy);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
